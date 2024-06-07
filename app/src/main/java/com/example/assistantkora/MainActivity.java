@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         ConstraintLayout chatButton = findViewById(R.id.chat_botao);
         ConstraintLayout weatherButton = findViewById(R.id.weatherbutton);
         ConstraintLayout settingsbutton = findViewById(R.id.settingsbutton);
+        ConstraintLayout footballbutton = findViewById(R.id.footballbutton);
 
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +52,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        footballbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, FootballActivity.class);
+                startActivity(intent);
+            }
+        });
+
         settingsbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 finish(); // Finaliza a MainActivity para evitar que o usuário volte pressionando o botão "Voltar"
             }
         });
+
 
 
     }
