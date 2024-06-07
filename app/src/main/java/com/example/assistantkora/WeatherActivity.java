@@ -1,18 +1,21 @@
 package com.example.assistantkora;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -54,7 +57,8 @@ public class WeatherActivity extends AppCompatActivity {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-
+        AppCompatImageView imageWeatherBack = findViewById(R.id.imageWeatherBack);
+        AppCompatImageView imageWeatherSearch = findViewById(R.id.imageWeatherSearch);
         Location_Change = findViewById(R.id.name_location_label);
         Weather_Change = findViewById(R.id.weather_state_label);
         Temp_change = findViewById(R.id.degree_text);
@@ -63,6 +67,24 @@ public class WeatherActivity extends AppCompatActivity {
         Humididty_change = findViewById(R.id.humidity_text);
         Icon_Image = findViewById(R.id.icon);
         Dia_mes_hora = findViewById(R.id.Dia_mes_hora);
+
+        imageWeatherBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WeatherActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        imageWeatherSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WeatherActivity.this, WeatherSearchActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {

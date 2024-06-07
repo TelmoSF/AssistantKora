@@ -18,7 +18,20 @@
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:tint="@color/white"/>
+        android:tint="@color/black"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageWeatherSearch"
+        android:layout_width="41dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:padding="@dimen/_5sdp"
+        android:src="@drawable/ic_search"
+        android:tint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.919"
+        app:layout_constraintStart_toEndOf="@+id/imageWeatherBack"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -32,7 +45,6 @@
             android:id="@+id/name_location_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mem-Martins"
             android:textAlignment="center"
             android:textColor="@color/main_location"
             android:textSize="40sp"
@@ -43,7 +55,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Nublado"
             android:textAlignment="center"
             android:textColor="@color/weather"
             android:textSize="20sp" />
@@ -64,15 +75,13 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/cloudy_sunny" />
+            android:layout_marginTop="16dp"/>
 
         <TextView
             android:id="@+id/Dia_mes_hora"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Segunda-Feira Jun 20 | 13:00"
             android:textAlignment="center"
             android:textColor="@color/weather"
             android:textSize="19sp" />
@@ -81,7 +90,7 @@
             android:id="@+id/degree_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="  2º"
+
             android:textAlignment="center"
             android:textColor="@color/degree"
             android:textSize="63sp"
@@ -119,7 +128,6 @@
                         android:id="@+id/windspeed_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="18km/h"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
@@ -152,7 +160,6 @@
                         android:id="@+id/feelslike_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="10º"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
@@ -185,7 +192,6 @@
                         android:id="@+id/humidity_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="22%"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
