@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BotaoPadrao" parent="Widget.AppCompat.Button">
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@android:color/white</item>
+        <!-- Adiciona mais propriedades conforme necessário -->
+    </style>
+</resources>

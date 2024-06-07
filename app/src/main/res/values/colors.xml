@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="icons">#40648c</color>
+    <color name="blue">#4A6591</color>
+    <color name="background_weather">#BBDDFD</color>
+    <color name="main_location">#002863</color>
+    <color name="weather">#0047B0</color>
+    <color name="degree">#0050C8</color>
+</resources>
