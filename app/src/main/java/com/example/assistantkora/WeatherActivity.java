@@ -1,19 +1,27 @@
 package com.example.assistantkora;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +41,9 @@ import java.util.TimeZone;
 public class WeatherActivity extends AppCompatActivity {
 
     private static final String TAG = "WeatherActivity";
+
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    private FusedLocationProviderClient fusedLocationClient;
     private TextView Location_Change, Weather_Change, Temp_change, Wind_change, Sens_change, Humididty_change, Dia_mes_hora;
     private ImageView Icon_Image;
 
@@ -40,6 +51,10 @@ public class WeatherActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+
         Location_Change = findViewById(R.id.name_location_label);
         Weather_Change = findViewById(R.id.weather_state_label);
         Temp_change = findViewById(R.id.degree_text);
@@ -49,14 +64,65 @@ public class WeatherActivity extends AppCompatActivity {
         Icon_Image = findViewById(R.id.icon);
         Dia_mes_hora = findViewById(R.id.Dia_mes_hora);
 
-        // Define userInput and url
-        String userInput = "Mem Martins";
-        String url = "http://kora.us.to/file/request/weather.php";
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+        } else {
+            getLocationAndFetchWeather();
+        }
 
-        new ChatTask().execute(userInput, url);
+        // Define userInput and url
+        //String userInput = "Mem Martins";
+
+
+        //new WeatherTask().execute(userInput);
 
         // Update the date and time continuously
         updateTime();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            getLocationAndFetchWeather();
+        }
+    }
+
+    private void getLocationAndFetchWeather() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // Solicitar permissões, se não estiverem concedidas
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+            return;
+        }
+
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            String locationStr = location.getLatitude() + "," + location.getLongitude();
+                            new WeatherActivity.WeatherTask().execute(locationStr);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getLocationAndFetchWeather();
+            } else {
+                // Permissão negada, mostre uma mensagem ao usuário
+            }
+        }
     }
 
     private void updateTime() {
@@ -98,21 +164,18 @@ public class WeatherActivity extends AppCompatActivity {
 
 
 
-    private class ChatTask extends AsyncTask<String, Void, JSONObject> {
+    private class WeatherTask extends AsyncTask<String, Void, JSONObject> {
 
         @Override
         protected JSONObject doInBackground(String... params) {
-            String userInput = params[0];
-            String url = params[1];
+            String location = params[0];
             try {
-                URL requestUrl = new URL(url);
-                HttpURLConnection connection = (HttpURLConnection) requestUrl.openConnection();
-
+                URL url = new URL("http://kora.us.to/file/request/weather.php");
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoOutput(true);
 
-                String requestBody = "localiza=" + userInput;
-
+                String requestBody = "localiza=" + location;
                 OutputStream outputStream = connection.getOutputStream();
                 outputStream.write(requestBody.getBytes());
                 outputStream.flush();
@@ -130,7 +193,7 @@ public class WeatherActivity extends AppCompatActivity {
                 return new JSONObject(response.toString());
 
             } catch (IOException | JSONException e) {
-                Log.e(TAG, "Error in network request", e);
+                e.printStackTrace();
             }
             return null;
         }
