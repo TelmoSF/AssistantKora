@@ -1,6 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_weather"
+    android:id="@+id/root_layout">
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp">
+
+        <TextView
+            android:id="@+id/name_location_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mem Martins"
+            android:textAlignment="center"
+            android:textColor="@color/main_location"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/weather_state_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Nublado"
+            android:textAlignment="center"
+            android:textColor="@color/weather"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        android:layout_marginBottom="50sp">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/cloudy_sunny"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:id="@+id/Dia_mes_hora"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Segunda-Feira Jun. 07 | 13h00"
+            android:textAlignment="center"
+            android:textColor="@color/weather"
+            android:textSize="19sp" />
+
+        <TextView
+            android:id="@+id/degree_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="  2º"
+            android:textAlignment="center"
+            android:textColor="@color/degree"
+            android:textSize="63sp"
+            android:layout_marginTop="10sp"
+            android:textStyle="bold" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="24dp"
+            android:background="@drawable/gradient_background_banner">
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:layout_weight="0.333"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/windspeed_image"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/wind" />
+
+                    <TextView
+                        android:id="@+id/windspeed_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="22km/h"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/windspeed_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Velocidade Vento"
+                        android:textAlignment="center"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:layout_weight="0.333"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/feelslike_image"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/temp_1" />
+
+                    <TextView
+                        android:id="@+id/feelslike_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="2º"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/feelslike_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Sensação Térmica"
+                        android:textAlignment="center"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:layout_weight="0.333"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/humidity_image"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/humidity" />
+
+                    <TextView
+                        android:id="@+id/humidity_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="10%"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/humidity_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Nível Humidade"
+                        android:textAlignment="center"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/small_white_circle" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
