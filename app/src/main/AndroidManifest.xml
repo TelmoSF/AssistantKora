@@ -19,6 +19,9 @@
         android:theme="@style/Theme.AssistantKora"
         tools:targetApi="31">
         <activity
+            android:name=".StandingActivity"
+            android:exported="false" />
+        <activity
             android:name=".FootballActivity"
             android:exported="false" />
         <activity

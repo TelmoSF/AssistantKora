@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#F5F5F5"> <!-- Set background color for the activity -->
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Football Standings"
+      android:textSize="24sp"
+      android:textColor="#000"
+      android:layout_gravity="center"
+      android:layout_marginBottom="16dp"/> <!-- Add margin bottom -->
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+    <TableLayout
+        android:id="@+id/standings_table_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:padding="8dp"> <!-- Add padding to the table -->
+
+      <!-- Table Rows will be added programmatically -->
+
+    </TableLayout>
+  </ScrollView>
+</LinearLayout>

@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         footballbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, FootballActivity.class);
+                Intent intent = new Intent(MainActivity.this, teste.class);
                 startActivity(intent);
             }
         });

@@ -8,4 +8,10 @@
     <color name="main_location">#002863</color>
     <color name="weather">#0047B0</color>
     <color name="degree">#0050C8</color>
+    <color name="champions_league">#1565C0</color>
+    <color name="europa_league">#FFA000</color>
+    <color name="conference_league">#4CAF50</color>
+    <color name="table_header_color">#CCCCCC</color>
+    <color name="table_cell_color">#FFFFFF</color>
+
 </resources>
