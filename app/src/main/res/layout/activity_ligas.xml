@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_weather"
+    tools:context=".FootballActivity">
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="-50dp"
+        app:srcCompat="@drawable/navbar" />
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="662dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="69dp">
+
+    </WebView>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageFootballBack"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginLeft="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:padding="@dimen/_5sdp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:tint="@color/black"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ligas"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/baseline_star_24"
+            android:tint="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/jogos"
+            app:layout_constraintHorizontal_bias="0" />
+
+        <TextView
+            android:id="@+id/ligas_caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ligas"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@id/ligas"
+            app:layout_constraintStart_toStartOf="@id/ligas"
+            app:layout_constraintEnd_toEndOf="@id/ligas"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/jogos"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/outline_watch_later_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ligas"
+            app:layout_constraintEnd_toStartOf="@id/fav"
+            app:layout_constraintHorizontal_bias="0.5" />
+
+        <TextView
+            android:id="@+id/jogos_caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jogos"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@id/jogos"
+            app:layout_constraintStart_toStartOf="@id/jogos"
+            app:layout_constraintEnd_toEndOf="@id/jogos"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/fav"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/outline_person_search_24"
+            android:tint="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/jogos"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1" />
+
+        <TextView
+            android:id="@+id/fav_caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jogadores"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@id/fav"
+            app:layout_constraintStart_toStartOf="@id/fav"
+            app:layout_constraintEnd_toEndOf="@id/fav"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</RelativeLayout>

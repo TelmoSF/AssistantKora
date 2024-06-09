@@ -9,18 +9,18 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-public class FootballActivity extends AppCompatActivity {
+public class JogadoresActivity extends AppCompatActivity {
 
     private WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_football);
+        setContentView(R.layout.activity_jogadores);
 
         AppCompatImageView imageFootballBack = findViewById(R.id.imageFootballBack);
         AppCompatImageView ligas = findViewById(R.id.ligas);
-        AppCompatImageView fav = findViewById(R.id.fav);
+        AppCompatImageView jogos = findViewById(R.id.jogos);
         webView = findViewById(R.id.webView);
 
         // Enable JavaScript (if required)
@@ -28,12 +28,21 @@ public class FootballActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
 
         // Load the specific page URL
-        webView.loadUrl("http://kora.us.to/file/Football/Fixtures.html");
+        webView.loadUrl("http://kora.us.to/file/Football/Player.html");
 
         imageFootballBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FootballActivity.this, MainActivity.class);
+                Intent intent = new Intent(JogadoresActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        jogos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(JogadoresActivity.this, FootballActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -42,16 +51,7 @@ public class FootballActivity extends AppCompatActivity {
         ligas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FootballActivity.this, LigasActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        fav.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FootballActivity.this, JogadoresActivity.class);
+                Intent intent = new Intent(JogadoresActivity.this, LigasActivity.class);
                 startActivity(intent);
                 finish();
             }

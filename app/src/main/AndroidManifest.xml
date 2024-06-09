@@ -19,7 +19,10 @@
         android:theme="@style/Theme.AssistantKora"
         tools:targetApi="31">
         <activity
-            android:name=".StandingActivity"
+            android:name=".JogadoresActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LigasActivity"
             android:exported="false" />
         <activity
             android:name=".FootballActivity"
@@ -29,9 +32,6 @@
             android:exported="false" />
         <activity
             android:name=".WeatherActivity"
-            android:exported="false" />
-        <activity
-            android:name=".teste"
             android:exported="false" />
         <activity
             android:name=".ChatActivity"
