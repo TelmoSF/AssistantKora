@@ -11,17 +11,17 @@
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="4dp"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp">
+        tools:layout_editor_absoluteX="-16dp">
 
         <TextView
             android:id="@+id/name_location_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mem Martins"
             android:textAlignment="center"
+            android:text="Mem Martins"
             android:textColor="@color/main_location"
             android:textSize="40sp"
             android:textStyle="bold" />
@@ -48,7 +48,7 @@
         <ImageView
             android:id="@+id/icon"
             android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:layout_gravity="center"
             android:src="@drawable/cloudy_sunny"
             android:layout_marginTop="16dp"/>

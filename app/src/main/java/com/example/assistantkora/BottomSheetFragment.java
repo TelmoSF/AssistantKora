@@ -39,6 +39,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     private static final String TAG = "BottomSheetFragment";
 
     private TextView Location_Change, Weather_Change, Temp_change, Wind_change, Sens_change, Humididty_change, Dia_mes_hora;
+
     private ImageView Icon_Image;
 
     // Factory method to create a new instance of BottomSheetFragment
@@ -89,7 +90,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
             public void onGlobalLayout() {
                 BottomSheetBehavior<View> behavior = BottomSheetBehavior.from((View) view.getParent());
                 behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                behavior.setPeekHeight(getResources().getDimensionPixelSize(R.dimen.bottom_sheet_height));
 
                 // Remove the listener
                 view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
