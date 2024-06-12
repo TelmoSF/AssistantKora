@@ -64,15 +64,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Atualiza a flag isLoggedIn para false nas preferências compartilhadas
-                SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("isLoggedIn", false);
-                editor.apply();
+                //SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                //SharedPreferences.Editor editor = sharedPreferences.edit();
+                //editor.putBoolean("isLoggedIn", false);
+                //editor.apply();
 
                 // Redireciona para a Login Activity
-                Intent intent = new Intent(MainActivity.this, Login.class);
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
-                finish(); // Finaliza a MainActivity para evitar que o usuário volte pressionando o botão "Voltar"
+                //finish(); // Finaliza a MainActivity para evitar que o usuário volte pressionando o botão "Voltar"
             }
         });
 
