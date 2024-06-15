@@ -28,7 +28,7 @@ public class JogadoresActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
 
         // Load the specific page URL
-        webView.loadUrl("http://kora.us.to/file/Football/Player.html");
+        webView.loadUrl("http://kora.us.to/file/Football/Players.html");
 
         imageFootballBack.setOnClickListener(new View.OnClickListener() {
             @Override
