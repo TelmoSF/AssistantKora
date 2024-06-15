@@ -32,6 +32,16 @@ public class MainActivity extends AppCompatActivity {
         ConstraintLayout weatherButton = findViewById(R.id.weatherbutton);
         ConstraintLayout settingsbutton = findViewById(R.id.settingsbutton);
         ConstraintLayout footballbutton = findViewById(R.id.footballbutton);
+        ConstraintLayout newsbutton = findViewById(R.id.newsbutton);
+
+
+        newsbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, NewsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
