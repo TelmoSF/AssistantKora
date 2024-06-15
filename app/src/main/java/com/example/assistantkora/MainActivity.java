@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         ConstraintLayout weatherButton = findViewById(R.id.weatherbutton);
         ConstraintLayout settingsbutton = findViewById(R.id.settingsbutton);
         ConstraintLayout footballbutton = findViewById(R.id.footballbutton);
+        ConstraintLayout healthbutton = findViewById(R.id.health_button);
+
 
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +64,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivityForResult(intent, 1);
+            }
+        });
+
+        healthbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, HealthActivity.class);
+                startActivity(intent);
             }
         });
     }
