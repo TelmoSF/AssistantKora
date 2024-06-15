@@ -19,6 +19,18 @@
         android:theme="@style/Theme.AssistantKora"
         tools:targetApi="31">
         <activity
+            android:name=".NewsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BottomSheetName"
+            android:exported="false" />
+        <activity
+            android:name=".BottomSheetSenha"
+            android:exported="false" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".JogadoresActivity"
             android:exported="false" />
         <activity

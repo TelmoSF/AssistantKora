@@ -1,14 +1,11 @@
 package com.example.assistantkora;
 
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView usernameTextView;
     private TextView emailTextView;
     private TextView numberTextView;
-
+    private TextView idTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +23,10 @@ public class MainActivity extends AppCompatActivity {
         usernameTextView = findViewById(R.id.username);
         emailTextView = findViewById(R.id.email);
         numberTextView = findViewById(R.id.number);
-        loadUserDetails();
+        idTextView = findViewById(R.id.id);
 
+        // Inicialmente carregue os detalhes do usuário
+        loadUserDetails();
 
         ConstraintLayout chatButton = findViewById(R.id.chat_botao);
         ConstraintLayout weatherButton = findViewById(R.id.weatherbutton);
@@ -45,10 +44,8 @@ public class MainActivity extends AppCompatActivity {
         weatherButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(MainActivity.this, WeatherActivity.class);
                 startActivity(intent);
-
             }
         });
 
@@ -63,21 +60,26 @@ public class MainActivity extends AppCompatActivity {
         settingsbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Atualiza a flag isLoggedIn para false nas preferências compartilhadas
-                SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("isLoggedIn", false);
-                editor.apply();
-
-                // Redireciona para a Login Activity
-                Intent intent = new Intent(MainActivity.this, Login.class);
-                startActivity(intent);
-                finish(); // Finaliza a MainActivity para evitar que o usuário volte pressionando o botão "Voltar"
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivityForResult(intent, 1);
             }
         });
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            // Recarregue os detalhes do usuário
+            loadUserDetails();
+        }
+    }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Recarregue os detalhes do usuário
+        loadUserDetails();
     }
 
     private void loadUserDetails() {
@@ -85,8 +87,10 @@ public class MainActivity extends AppCompatActivity {
         String userName = sharedPreferences.getString("userName", "Usuário");
         String email = sharedPreferences.getString("email", "Email");
         String number = sharedPreferences.getString("number", "Numero");
+        int id = sharedPreferences.getInt("id", 0);
         usernameTextView.setText(userName);
         emailTextView.setText(email);
         numberTextView.setText(number);
+        idTextView.setText(String.valueOf(id));
     }
 }
