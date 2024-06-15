@@ -157,6 +157,7 @@ public class Login extends AppCompatActivity {
                     editor.putString("userName", userName);
                     editor.putString("email", email);
                     editor.putString("number", number);
+                    editor.putInt("id", id);
                     editor.putBoolean("isLoggedIn", true);
                     editor.apply();
 

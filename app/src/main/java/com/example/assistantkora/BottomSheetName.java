@@ -24,18 +24,18 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-public class BottomSheetEmail extends Dialog {
+public class BottomSheetName extends Dialog {
 
-    private EditText etEmail, etNEmail;
+    private EditText etEmail;
     private Button btnSave;
 
     private Context mContext;
 
     String iduser = "0";
 
-    private static final String TAG = "BottomSheetEmail"; // Tag para logs
+    private static final String TAG = "BottomSheetName";
 
-    public BottomSheetEmail(@NonNull Context context) {
+    public BottomSheetName(@NonNull Context context) {
         super(context);
         this.mContext = context;
     }
@@ -44,63 +44,59 @@ public class BottomSheetEmail extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.email_bottom_sheet);
+        setContentView(R.layout.activity_bottom_sheet_name);
 
         // Dim the background
         Window window = getWindow();
         if (window != null) {
-            window.setDimAmount(0.8f);  // Set dim amount, 0.0 for no dim and 1.0 for full dim
+            window.setDimAmount(0.8f);
         }
 
-        etEmail = findViewById(R.id.email);
-        etNEmail = findViewById(R.id.nemail);
+        etEmail = findViewById(R.id.nName);
         btnSave = findViewById(R.id.btn_save);
 
         loadUserDetails();
 
         btnSave.setOnClickListener(v -> {
-            // Get email and nemail values
             String email = etEmail.getText().toString();
-            String novo_email = etNEmail.getText().toString();
 
             Log.d(TAG, "Email: " + email);
-            Log.d(TAG, "Novo Email: " + novo_email);
             Log.d(TAG, "User ID: " + iduser);
 
             // Perform POST request in background
-            new SendPostRequest(mContext).execute(email, novo_email, iduser);
+            new SendPostRequest(mContext, email, iduser).execute();
 
             // Dismiss dialog
             dismiss();
         });
     }
 
-    private static class SendPostRequest extends AsyncTask<String, Void, String> {
+    private static class SendPostRequest extends AsyncTask<Void, Void, String> {
         private Context mContext;
+        private String email;
+        private String id;
 
-        public SendPostRequest(Context context) {
+        public SendPostRequest(Context context, String email, String id) {
             mContext = context;
+            this.email = email;
+            this.id = id;
         }
 
         @Override
-        protected String doInBackground(String... params) {
+        protected String doInBackground(Void... params) {
             try {
-                String email = params[0];
-                String novo_email = params[1];
-                String id = params[2];
-
                 Log.d(TAG, "Email in AsyncTask: " + email);
-                Log.d(TAG, "Novo Email in AsyncTask: " + novo_email);
                 Log.d(TAG, "User ID in AsyncTask: " + id);
 
                 // Construct the POST data
-                String postData = "id=" + id + "&email=" + email + "&nemail=" + novo_email;
+                String postData = "id=" + id + "&nome=" + email;
 
                 // Set up the connection
-                URL url = new URL("http://kora.us.to/file/settings/email.php");
+                URL url = new URL("http://kora.us.to/file/settings/name.php");
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setDoOutput(true);
+                urlConnection.setDoInput(true);
 
                 // Write data to the connection output stream
                 try (OutputStream outputStream = urlConnection.getOutputStream()) {
@@ -142,16 +138,24 @@ public class BottomSheetEmail extends Dialog {
                     JSONObject jsonResponse = new JSONObject(response);
                     String resposta = jsonResponse.getString("resposta");
                     Toast.makeText(mContext, resposta, Toast.LENGTH_SHORT).show();
+
+                    // Return value based on response
+                    if ("Nome Alterado".equals(resposta)) {
+                        ((SettingsActivity) mContext).onNameChangeSuccess(email);
+                    } else {
+                        ((SettingsActivity) mContext).onNameChangeFailure();
+                    }
                 } catch (Exception e) {
                     Log.e(TAG, "Error parsing JSON response", e);
                     Toast.makeText(mContext, "Error parsing server response", Toast.LENGTH_SHORT).show();
+                    ((SettingsActivity) mContext).onNameChangeFailure();
                 }
             } else {
                 Toast.makeText(mContext, "No response from server", Toast.LENGTH_SHORT).show();
+                ((SettingsActivity) mContext).onNameChangeFailure();
             }
         }
     }
-
 
     private void loadUserDetails() {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("UserPrefs", MODE_PRIVATE);

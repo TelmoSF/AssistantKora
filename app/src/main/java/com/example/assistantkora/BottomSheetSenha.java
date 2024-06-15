@@ -24,7 +24,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-public class BottomSheetEmail extends Dialog {
+public class BottomSheetSenha extends Dialog {
 
     private EditText etEmail, etNEmail;
     private Button btnSave;
@@ -33,9 +33,9 @@ public class BottomSheetEmail extends Dialog {
 
     String iduser = "0";
 
-    private static final String TAG = "BottomSheetEmail"; // Tag para logs
+    private static final String TAG = "BottomSheetEmail";
 
-    public BottomSheetEmail(@NonNull Context context) {
+    public BottomSheetSenha(@NonNull Context context) {
         super(context);
         this.mContext = context;
     }
@@ -44,12 +44,12 @@ public class BottomSheetEmail extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.email_bottom_sheet);
+        setContentView(R.layout.activity_bottom_sheet_senha);
 
         // Dim the background
         Window window = getWindow();
         if (window != null) {
-            window.setDimAmount(0.8f);  // Set dim amount, 0.0 for no dim and 1.0 for full dim
+            window.setDimAmount(0.8f);
         }
 
         etEmail = findViewById(R.id.email);
@@ -59,7 +59,6 @@ public class BottomSheetEmail extends Dialog {
         loadUserDetails();
 
         btnSave.setOnClickListener(v -> {
-            // Get email and nemail values
             String email = etEmail.getText().toString();
             String novo_email = etNEmail.getText().toString();
 
@@ -94,10 +93,10 @@ public class BottomSheetEmail extends Dialog {
                 Log.d(TAG, "User ID in AsyncTask: " + id);
 
                 // Construct the POST data
-                String postData = "id=" + id + "&email=" + email + "&nemail=" + novo_email;
+                String postData = "id=" + id + "&password=" + email + "&npassword=" + novo_email;
 
                 // Set up the connection
-                URL url = new URL("http://kora.us.to/file/settings/email.php");
+                URL url = new URL("http://kora.us.to/file/settings/password.php");
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setDoOutput(true);
@@ -151,7 +150,6 @@ public class BottomSheetEmail extends Dialog {
             }
         }
     }
-
 
     private void loadUserDetails() {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("UserPrefs", MODE_PRIVATE);

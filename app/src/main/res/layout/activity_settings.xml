@@ -83,7 +83,10 @@
                     android:text="Nome da Pessoa"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="25sp" />
+                    android:textSize="25sp"
+                    android:clickable="true"
+                    android:onClick="showProfileDetails"
+                    android:textColorLink="@color/black" />
 
                 <ImageView
                     android:id="@+id/imageView9"
@@ -331,7 +334,6 @@
                     android:id="@+id/sixth_box"
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
-
                     android:background="@drawable/background_settings_clean_label">
 
                     <ImageView
@@ -367,6 +369,14 @@
                         android:layout_marginEnd="8dp"
                         android:src="@drawable/ic_close" />
 
+                    <!-- Adiciona um clique para confirmar a exclusão -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:onClick="confirmDeleteAccount"
+                        android:background="?android:attr/selectableItemBackground">
+                    </RelativeLayout>
 
                 </RelativeLayout>
 
