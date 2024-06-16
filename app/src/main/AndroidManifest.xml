@@ -19,6 +19,12 @@
         android:theme="@style/Theme.AssistantKora"
         tools:targetApi="31">
         <activity
+            android:name=".SaudeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HealthActivity"
+            android:exported="false" />
+        <activity
             android:name=".NewsDetailActivity"
             android:exported="false" />
         <activity

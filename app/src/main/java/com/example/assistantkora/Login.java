@@ -150,6 +150,7 @@ public class Login extends AppCompatActivity {
                     String userName = jsonObject.getString("userName");
                     String email = jsonObject.getString("email");
                     String number = jsonObject.getString("number");
+                    String forms = jsonObject.getString("forms");
 
                     // Salvar o nome do usuário nas preferências compartilhadas
                     SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
@@ -157,6 +158,7 @@ public class Login extends AppCompatActivity {
                     editor.putString("userName", userName);
                     editor.putString("email", email);
                     editor.putString("number", number);
+                    editor.putString("forms", forms);
                     editor.putInt("id", id);
                     editor.putBoolean("isLoggedIn", true);
                     editor.apply();

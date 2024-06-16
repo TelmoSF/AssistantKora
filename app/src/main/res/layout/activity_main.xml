@@ -217,6 +217,7 @@
                             android:layout_width="72dp"
                             android:layout_height="71dp"
                             android:layout_gravity="center"
+                            android:id="@+id/health_button"
                             android:background="@drawable/shape_icons">
 
                             <ImageView

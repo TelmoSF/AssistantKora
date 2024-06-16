@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView emailTextView;
     private TextView numberTextView;
     private TextView idTextView;
+    private String forms; // Adiciona a variável forms
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
         ConstraintLayout weatherButton = findViewById(R.id.weatherbutton);
         ConstraintLayout settingsbutton = findViewById(R.id.settingsbutton);
         ConstraintLayout footballbutton = findViewById(R.id.footballbutton);
+        ConstraintLayout healthbutton = findViewById(R.id.health_button);
         ConstraintLayout newsbutton = findViewById(R.id.newsbutton);
-
 
         newsbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +75,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             }
         });
+
+        healthbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if ("0".equals(forms)) {
+                    Intent intent = new Intent(MainActivity.this, HealthActivity.class);
+                    startActivity(intent);
+                } else if ("1".equals(forms)) {
+                    Intent intent = new Intent(MainActivity.this, SaudeActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override
@@ -97,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         String userName = sharedPreferences.getString("userName", "Usuário");
         String email = sharedPreferences.getString("email", "Email");
         String number = sharedPreferences.getString("number", "Numero");
+        forms = sharedPreferences.getString("forms", "0"); // Corrige a variável forms
         int id = sharedPreferences.getInt("id", 0);
         usernameTextView.setText(userName);
         emailTextView.setText(email);

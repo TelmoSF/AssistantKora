@@ -1,0 +1,252 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#bbddfd"
+    android:padding="20dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Form Title -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <!-- Title Image -->
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="15dp"
+                    android:src="@drawable/ic_launcher_foreground" />
+
+                <!-- Title Text -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kora"
+                    android:textColor="#2769c5"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <!-- Peso -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="#f9f9f9"
+                android:backgroundTint="#ffffff"
+                android:orientation="vertical"
+                android:padding="15dp"
+                android:radius="8dp"
+                android:strokeColor="#ddd">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Qual é o seu peso?(kg)"
+                    android:textColor="#333" />
+
+                <EditText
+                    android:id="@+id/pesoEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/edit_text_background"
+                    android:inputType="numberDecimal" />
+            </LinearLayout>
+
+            <!-- Altura -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="#f9f9f9"
+                android:backgroundTint="#ffffff"
+                android:orientation="vertical"
+                android:padding="15dp"
+                android:radius="8dp"
+                android:strokeColor="#ddd">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Qual é a sua altura?(cm)"
+                    android:textColor="#333" />
+
+                <EditText
+                    android:id="@+id/alturaEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/edit_text_background"
+                    android:inputType="numberDecimal" />
+            </LinearLayout>
+
+            <!-- Idade -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="#f9f9f9"
+                android:backgroundTint="#ffffff"
+                android:orientation="vertical"
+                android:padding="15dp"
+                android:radius="8dp"
+                android:strokeColor="#ddd">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Qual é a sua idade?"
+                    android:textColor="#333" />
+
+                <EditText
+                    android:id="@+id/idadeEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/edit_text_background"
+                    android:inputType="number" />
+            </LinearLayout>
+
+            <!-- Gênero -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="#f9f9f9"
+                android:backgroundTint="#ffffff"
+                android:orientation="vertical"
+                android:padding="15dp"
+                android:radius="8dp"
+                android:strokeColor="#ddd">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Indique o seu Gênero?"
+                    android:textColor="#333" />
+
+                <RadioGroup
+                    android:id="@+id/generoRadioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/genero_masculino"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Masculino" />
+
+                    <RadioButton
+                        android:id="@+id/genero_feminino"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Feminino" />
+
+                    <RadioButton
+                        android:id="@+id/genero_outro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Outro" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <!-- Exercício -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="#f9f9f9"
+                android:backgroundTint="#ffffff"
+                android:orientation="vertical"
+                android:padding="15dp"
+                android:radius="8dp"
+                android:strokeColor="#ddd">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Quanto exercício faz diariamente?"
+                    android:textColor="#333" />
+
+                <RadioGroup
+                    android:id="@+id/exercicioRadioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/exercicio_pouco"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pouco" />
+
+                    <RadioButton
+                        android:id="@+id/exercicio_moderado"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Moderado" />
+
+                    <RadioButton
+                        android:id="@+id/exercicio_muito"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Muito" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <!-- Peso Desejado -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="#f9f9f9"
+                android:backgroundTint="#ffffff"
+                android:orientation="vertical"
+                android:padding="15dp"
+                android:radius="8dp"
+                android:strokeColor="#ddd">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Qual o peso que deseja atingir?(kg)"
+                    android:textColor="#333" />
+
+                <EditText
+                    android:id="@+id/pesoDesejadoEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/edit_text_background"
+                    android:inputType="numberDecimal" />
+            </LinearLayout>
+
+            <!-- Enviar Button -->
+            <Button
+                android:id="@+id/enviarButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="#2769c5"
+                android:padding="10dp"
+                android:text="Enviar"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
