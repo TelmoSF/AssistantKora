@@ -8,5 +8,6 @@
     <color name="main_location">#002863</color>
     <color name="weather">#0047B0</color>
     <color name="degree">#0050C8</color>
-
+    <color name="green">#2FFF00</color>
+    <color name="orange">#FF4900</color>
 </resources>
