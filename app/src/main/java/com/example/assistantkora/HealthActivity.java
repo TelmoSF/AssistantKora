@@ -18,14 +18,12 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import org.json.JSONObject;
-import android.content.SharedPreferences;
 
 public class HealthActivity extends AppCompatActivity {
 
     private EditText pesoEditText, alturaEditText, idadeEditText, pesoDesejadoEditText;
     private RadioGroup generoRadioGroup, exercicioRadioGroup;
     private Button enviarButton;
-    private TextView idTextView;
 
     private int userId;
 
@@ -33,8 +31,6 @@ public class HealthActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health);
-
-
 
         // Initialize views
         pesoEditText = findViewById(R.id.pesoEditText);
@@ -48,8 +44,6 @@ public class HealthActivity extends AppCompatActivity {
         enviarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 loadUserDetails();
 
                 String peso = pesoEditText.getText().toString();
@@ -65,17 +59,22 @@ public class HealthActivity extends AppCompatActivity {
                 RadioButton selectedExercicio = findViewById(selectedExercicioId);
                 String exercicio = selectedExercicio != null ? selectedExercicio.getText().toString() : "";
 
+                if (peso.isEmpty() || altura.isEmpty() || idade.isEmpty() || genero.isEmpty() || exercicio.isEmpty() || pesoDesejado.isEmpty()) {
+                    Toast.makeText(HealthActivity.this, "Por favor, preencha todos os campos.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 sendFormData(peso, altura, idade, genero, exercicio, pesoDesejado, userId);
             }
         });
     }
 
-    private void sendFormData(String peso, String altura, String idade, String genero, String exercicio, String pesoDesejado, int id)  {
+    private void sendFormData(String peso, String altura, String idade, String genero, String exercicio, String pesoDesejado, int id) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    URL url = new URL("http://kora.us.to/file/forms/forms.php");
+                    URL url = new URL("http://kora.us.to/file/saude/forms.php");
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("POST");
                     conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -110,7 +109,14 @@ public class HealthActivity extends AppCompatActivity {
 
                         runOnUiThread(() -> {
                             if ("success".equals(status)) {
-                                Intent intent = new Intent( HealthActivity.this, SaudeActivity.class);
+                                // Atualizar SharedPreferences
+                                SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("forms", "1");
+                                editor.apply();
+
+                                // Navegar para a próxima atividade
+                                Intent intent = new Intent(HealthActivity.this, SaudeActivity.class);
                                 startActivity(intent);
                                 Toast.makeText(HealthActivity.this, "Dados enviados com sucesso! " + message, Toast.LENGTH_LONG).show();
                             } else {
@@ -134,4 +140,3 @@ public class HealthActivity extends AppCompatActivity {
         userId = sharedPreferences.getInt("id", 0);
     }
 }
-

@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="130dp"
     android:layout_height="70dp"
+    android:layout_margin="3.75dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
     app:cardCornerRadius="8dp">
@@ -10,5 +11,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/idIVCategory"
+            android:src="@color/blue"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:text="Categoria"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:padding="3dp"
+            android:id="@+id/idTVCategory"/>
+
+
+
+
+
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

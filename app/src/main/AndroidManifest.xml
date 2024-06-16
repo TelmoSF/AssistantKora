@@ -25,7 +25,7 @@
             android:name=".HealthActivity"
             android:exported="false" />
         <activity
-            android:name=".health"
+            android:name=".NewsDetailActivity"
             android:exported="false" />
         <activity
             android:name=".NewsActivity"
