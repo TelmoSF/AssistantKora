@@ -44,12 +44,8 @@ public class SettingsActivity extends AppCompatActivity {
         sixthBox = findViewById(R.id.sixth_box);
 
         settingsBack.setOnClickListener(v -> {
-            SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-            String email = sharedPreferences.getString("email", "");
-            String novoEmail = ""; // Placeholder for new email if needed
-            int id = sharedPreferences.getInt("id", 0);
-
-            new DeleteAccountTask(SettingsActivity.this).execute(email, novoEmail, String.valueOf(id));
+            // Voltar para a atividade anterior sem excluir a conta
+            finish();
         });
 
         profileName.setOnClickListener(new View.OnClickListener() {

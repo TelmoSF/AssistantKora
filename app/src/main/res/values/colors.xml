@@ -4,9 +4,13 @@
     <color name="white">#FFFFFFFF</color>
     <color name="icons">#40648c</color>
     <color name="blue">#4A6591</color>
+    <color name="circulo">#87CEFA</color>
     <color name="background_weather">#BBDDFD</color>
     <color name="main_location">#002863</color>
     <color name="weather">#0047B0</color>
     <color name="degree">#0050C8</color>
+    <color name="comida">#FF8C00</color>
+    <color name="run">#00FF7F</color>
+    <color name="agua">#1CA3EC</color>
 
 </resources>

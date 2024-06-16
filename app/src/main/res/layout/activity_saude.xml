@@ -1,9 +1,126 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SaudeActivity">
+    android:background="#bbddff"
+    tools:context=".MainActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/settings_back"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginLeft="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:padding="@dimen/_5sdp"
+        android:src="@drawable/ic_back"
+        android:tint="@color/black" />
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/settings_back"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="60dp"
+        android:layout_toEndOf="@+id/settings_back"
+        android:background="@android:color/transparent"
+        android:text="Saúde"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textColorHint="#888"
+        android:textSize="25dp"  />
+
+    <TextView
+        android:id="@+id/subtitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text=""
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <RelativeLayout
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        android:layout_below="@id/subtitleText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp">
+
+        <ProgressBar
+            android:id="@+id/calorieBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:indeterminate="false"
+            android:indeterminateOnly="false"
+            android:max="3000"
+            android:progress="0"
+            android:progressDrawable="@drawable/circular_progress"
+            android:rotation="270" />
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="85dp"
+            android:src="@drawable/ic_email" /> <!-- Substitua com o ícone desejado -->
+
+        <TextView
+            android:id="@+id/caloriesText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="500"
+            android:textColor="@color/black"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/calorieBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="300dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <!-- Substitua com o ícone de atividade -->
+
+        <ImageButton
+            android:id="@+id/activityButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/circle_run"
+            android:contentDescription="Atividade"
+            android:src="@drawable/ic_run" />
+
+        <ImageButton
+            android:id="@+id/locationButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/circle_comida"
+            android:contentDescription="Localização"
+            android:src="@drawable/ic_talheres" /> <!-- Substitua com o ícone de localização -->
+
+        <!-- Novo botão para adicionar comida -->
+        <ImageButton
+            android:id="@+id/foodButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/circle_agua"
+            android:contentDescription="Adicionar Comida"
+            android:src="@drawable/ic_water" /> <!-- Substitua com o ícone de comida -->
+
+    </LinearLayout>
+</RelativeLayout>
