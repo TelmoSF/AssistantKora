@@ -12,5 +12,7 @@
     <color name="comida">#FF8C00</color>
     <color name="run">#00FF7F</color>
     <color name="agua">#1CA3EC</color>
+    <color name="green">#2FFF00</color>
+    <color name="orange">#FF4900</color>
 
 </resources>
