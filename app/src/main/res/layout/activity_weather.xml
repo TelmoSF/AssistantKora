@@ -136,7 +136,7 @@
                         android:id="@+id/windspeed_label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Velocidade Vento"
+                        android:text="Velocidade do Vento"
                         android:textAlignment="center"
                         android:textColor="@color/white" />
                 </LinearLayout>
@@ -200,7 +200,7 @@
                         android:id="@+id/humidity_label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Nível Humidade"
+                        android:text="Nível de Humidade"
                         android:textAlignment="center"
                         android:textColor="@color/white" />
                 </LinearLayout>
