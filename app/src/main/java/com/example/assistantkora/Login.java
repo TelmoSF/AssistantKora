@@ -152,6 +152,7 @@ public class Login extends AppCompatActivity {
                     String number = jsonObject.getString("number");
                     String forms = jsonObject.getString("forms");
 
+
                     // Salvar o nome do usuário nas preferências compartilhadas
                     SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -166,7 +167,8 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this, message, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(Login.this, MainActivity.class);
                     startActivity(intent);
-                    finish(); // Finaliza a atividade de login para que o usuário não possa voltar para ela pressionando o botão "Voltar"
+                    finish();
+
                 } else {
                     // Login falhou
                     Toast.makeText(Login.this, message, Toast.LENGTH_SHORT).show();
