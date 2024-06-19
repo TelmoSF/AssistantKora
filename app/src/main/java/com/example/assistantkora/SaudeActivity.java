@@ -2,7 +2,7 @@ package com.example.assistantkora;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
-
+import androidx.core.content.ContextCompat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -21,21 +21,19 @@ import android.content.Context;
 
 public class SaudeActivity extends AppCompatActivity {
 
-    private ImageButton imagebuttonWater;
+    private ImageButton imagebuttonWater, imagebuttonExercicio;
     private ProgressBar calorieBar;
-    private TextView caloriesText, titleText, metacalorica;
+    private TextView caloriesText, titleText, metacalorica, waterText;
 
     String iduser = "0";
-
     String meta = "0";
-
     int maxCalories = 0;
     private int eatenCalories = 1126;
+    private int waterDrank = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_saude);
 
         calorieBar = findViewById(R.id.calorieBar);
@@ -43,7 +41,9 @@ public class SaudeActivity extends AppCompatActivity {
         titleText = findViewById(R.id.titleText);
         metacalorica = findViewById(R.id.metaCaloricaText);
         imagebuttonWater = findViewById(R.id.waterButton);
+        imagebuttonExercicio = findViewById(R.id.exercicio_btn);
         AppCompatImageView health_back = findViewById(R.id.health_back);
+        waterText = findViewById(R.id.waterText);
 
         loadUserDetails();
 
@@ -59,7 +59,15 @@ public class SaudeActivity extends AppCompatActivity {
         imagebuttonWater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BottomSheetName dialog = new BottomSheetName(SaudeActivity.this);
+                BottomSheetWater dialog = new BottomSheetWater(SaudeActivity.this);
+                dialog.show();
+            }
+        });
+
+        imagebuttonExercicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BottomSheetExer dialog = new BottomSheetExer(SaudeActivity.this);
                 dialog.show();
             }
         });
@@ -69,6 +77,10 @@ public class SaudeActivity extends AppCompatActivity {
         calorieBar.setMax(maxCalories);
         calorieBar.setProgress(eatenCalories);
         caloriesText.setText(String.valueOf(eatenCalories));
+    }
+
+    private void updateWaterText() {
+        waterText.setText(String.format("%d ml", waterDrank));
     }
 
     private void consumeCalories(int calories) {
@@ -83,62 +95,63 @@ public class SaudeActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         int id = sharedPreferences.getInt("id", 0);
         iduser = Integer.toString(id);
-        // titleText.setText(iduser);
         loadHealthDetails(id);
     }
 
     public void loadHealthDetails(int id) {
-        new AsyncTask<Integer, Void, Integer>() {
-            @Override
-            protected Integer doInBackground(Integer... params) {
-                int id = params[0];
+        new LoadHealthDetailsTask().execute(id);
+    }
+
+    private class LoadHealthDetailsTask extends AsyncTask<Integer, Void, JSONObject> {
+        @Override
+        protected JSONObject doInBackground(Integer... params) {
+            int id = params[0];
+            try {
+                URL url = new URL("http://kora.us.to/file/saude/loadhealth.php");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setDoOutput(true);
+                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+                String postData = "id=" + id;
+                OutputStream os = conn.getOutputStream();
+                os.write(postData.getBytes());
+                os.flush();
+                os.close();
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                String line;
+                while ((line = br.readLine()) != null) {
+                    response.append(line);
+                }
+                br.close();
+
+                return new JSONObject(response.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonResponse) {
+            if (jsonResponse != null) {
                 try {
-                    // URL of the PHP script
-                    URL url = new URL("http://kora.us.to/file/saude/loadhealth.php");
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestMethod("POST");
-                    conn.setDoOutput(true);
-                    conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
-                    // Prepare the POST data
-                    String postData = "id=" + id;
-
-                    // Send the POST data
-                    OutputStream os = conn.getOutputStream();
-                    os.write(postData.getBytes());
-                    os.flush();
-                    os.close();
-
-                    // Read the response
-                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    StringBuilder response = new StringBuilder();
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        response.append(line);
-                    }
-                    br.close();
-
-                    // Parse the JSON response
-                    JSONObject jsonResponse = new JSONObject(response.toString());
-                    return jsonResponse.getInt("calorias");
-
+                    maxCalories = jsonResponse.getInt("calorias");
+                    waterDrank = jsonResponse.getInt("water");
+                    int minCal = jsonResponse.getInt("mincal");
+                    eatenCalories = minCal;
+                    meta = Integer.toString(maxCalories);
+                    metacalorica.setText("Meta Calórica\n" + "\u200E \u200E \u200E \u200E \u200E \u200E \u200E \u200E " + meta);
+                    updateCalorieBar();
+                    updateWaterText();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    return null;
                 }
+            } else {
+                // Handle the error
             }
-
-            @Override
-            protected void onPostExecute(Integer calorias) {
-                if (calorias != null) {
-                    maxCalories = calorias;
-                    meta = Integer.toString(calorias);
-                    metacalorica.setText("Meta Calórica\n" +"\u200E \u200E \u200E \u200E \u200E \u200E \u200E \u200E " +meta);
-                    updateCalorieBar();
-                } else {
-                    // Handle the error
-                }
-            }
-        }.execute(id);
+        }
     }
 }

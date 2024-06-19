@@ -79,7 +79,8 @@
             android:layout_height="40dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="145dp"
-            android:src="@drawable/ic_fire" /> <!-- Substitua com o ícone desejado -->
+            android:src="@drawable/ic_fire" />
+        <!-- Substitua com o ícone desejado -->
 
         <TextView
             android:id="@+id/caloriesText"
@@ -106,7 +107,7 @@
 
 
         <ImageButton
-            android:id="@+id/activityButton"
+            android:id="@+id/exercicio_btn"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_margin="16dp"
@@ -131,7 +132,14 @@
             android:layout_margin="16dp"
             android:background="@drawable/circle_agua"
             android:contentDescription="Adicionar Comida"
-            android:src="@drawable/ic_water" /> <!-- Substitua com o ícone de comida -->
+            android:src="@drawable/ic_water" />
+        <TextView
+            android:id="@+id/waterText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Water: 0 ml"
+            android:textSize="18sp" />
+        <!-- Substitua com o ícone de comida -->
 
     </LinearLayout>
 </RelativeLayout>
