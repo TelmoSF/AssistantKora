@@ -1,6 +1,7 @@
 package com.example.assistantkora;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -35,6 +36,17 @@ public class NewsDetailActivity extends AppCompatActivity {
         subDescTV.setText(desc);
         contentTV.setText(content);
         Picasso.get().load(imageURL).into(newsIV);
+        AppCompatImageView newsdetail_back = findViewById(R.id.newsdetail_back);
+
+        newsdetail_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NewsDetailActivity.this, NewsActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         readNewsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

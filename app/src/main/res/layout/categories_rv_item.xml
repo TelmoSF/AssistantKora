@@ -25,7 +25,7 @@
             android:layout_centerInParent="true"
             android:text="Categoria"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:padding="3dp"
             android:id="@+id/idTVCategory"/>
