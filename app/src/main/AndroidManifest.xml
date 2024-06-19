@@ -19,6 +19,18 @@
         android:theme="@style/Theme.AssistantKora"
         tools:targetApi="31">
         <activity
+            android:name=".BottomSheetBicicleta"
+            android:exported="false" />
+        <activity
+            android:name=".BottomSheetCorrida"
+            android:exported="false" />
+        <activity
+            android:name=".BottomSheetCaminhada"
+            android:exported="false" />
+        <activity
+            android:name=".BottomSheetExer"
+            android:exported="false" />
+        <activity
             android:name=".SaudeActivity"
             android:exported="false" />
         <activity
@@ -69,7 +81,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:exported="false" />
