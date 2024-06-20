@@ -1,0 +1,78 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="25dp">
+
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Nome"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp"
+        android:textSize="17sp"
+        android:padding="16dp"/>
+
+    <EditText
+        android:id="@+id/et_calorias"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Calorias"
+        app:layout_constraintTop_toBottomOf="@+id/et_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp"
+        android:textSize="17sp"
+        android:padding="16dp"/>
+
+    <EditText
+        android:id="@+id/et_gordura"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Gordura"
+        app:layout_constraintTop_toBottomOf="@+id/et_calorias"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp"
+        android:textSize="17sp"
+        android:padding="16dp"/>
+
+    <EditText
+        android:id="@+id/et_carbohidratos"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Carbohidratos"
+        app:layout_constraintTop_toBottomOf="@+id/et_gordura"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp"
+        android:textSize="17sp"
+        android:padding="16dp"/>
+
+    <EditText
+        android:id="@+id/et_proteina"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Proteína"
+        android:padding="16dp"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_carbohidratos" />
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Adicionar"
+        android:textSize="17sp"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/et_proteina"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

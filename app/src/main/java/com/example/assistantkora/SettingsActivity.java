@@ -26,8 +26,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private ImageView settingsBack;
     private TextView profileName;
-    private RelativeLayout firstBox, secondBox, thirdBox, fifthBox, sixthBox;
-
+    private RelativeLayout firstBox, secondBox, thirdBox, fifthBox, sixthBox, profile_container;
     private static final String TAG = "SettingsActivity";
 
     @Override
@@ -42,58 +41,47 @@ public class SettingsActivity extends AppCompatActivity {
         fifthBox = findViewById(R.id.fifth_box);
         profileName = findViewById(R.id.profile_name);
         sixthBox = findViewById(R.id.sixth_box);
+        profile_container = findViewById(R.id.profile_container);
 
-        settingsBack.setOnClickListener(v -> {
-            // Voltar para a atividade anterior sem excluir a conta
+        settingsBack.setOnClickListener(v -> finish());
+
+        profile_container.setOnClickListener(view -> {
+            BottomSheetName dialog = new BottomSheetName(SettingsActivity.this);
+            dialog.show();
+        });
+
+        fifthBox.setOnClickListener(view -> {
+            SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("isLoggedIn", false);
+            editor.apply();
+
+            Intent intent = new Intent(SettingsActivity.this, Login.class);
+            startActivity(intent);
             finish();
         });
 
-        profileName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                BottomSheetName dialog = new BottomSheetName(SettingsActivity.this);
-                dialog.show();
-            }
-        });
+        firstBox.setOnClickListener(v -> showEmail());
+        secondBox.setOnClickListener(v -> showSenha());
+        thirdBox.setOnClickListener(v -> showCode());
 
-        fifthBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Atualiza a flag isLoggedIn para false nas preferências compartilhadas
-                SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("isLoggedIn", false);
-                editor.apply();
-
-                // Redireciona para a Login Activity
-                Intent intent = new Intent(SettingsActivity.this, Login.class);
-                startActivity(intent);
-                finish(); // Finaliza a MainActivity para evitar que o usuário volte pressionando o botão "Voltar"
-            }
-        });
-
-        firstBox.setOnClickListener(v -> showemail());
-        secondBox.setOnClickListener(v -> showsenha());
-        thirdBox.setOnClickListener(v -> showemail());
-
-        sixthBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                confirmDeleteAccount(view);
-            }
-        });
+        sixthBox.setOnClickListener(this::confirmDeleteAccount);
 
         loadUserDetails();
-
     }
 
-    private void showemail() {
+    private void showEmail() {
         BottomSheetEmail dialog = new BottomSheetEmail(SettingsActivity.this);
         dialog.show();
     }
 
-    private void showsenha() {
+    private void showSenha() {
         BottomSheetSenha dialog = new BottomSheetSenha(SettingsActivity.this);
+        dialog.show();
+    }
+
+    private void showCode() {
+        BottomSheetCode dialog = new BottomSheetCode(SettingsActivity.this);
         dialog.show();
     }
 
@@ -101,20 +89,17 @@ public class SettingsActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Confirmar Exclusão");
         builder.setMessage("Tem certeza que deseja excluir sua conta?");
-        builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-                int userId = sharedPreferences.getInt("id", 0);
-                new DeleteAccountTask(SettingsActivity.this).execute(String.valueOf(userId));
-            }
+        builder.setPositiveButton("Sim", (dialogInterface, i) -> {
+            SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+            int userId = sharedPreferences.getInt("id", 0);
+            new DeleteAccountTask(SettingsActivity.this).execute(String.valueOf(userId));
         });
         builder.setNegativeButton("Não", null);
         builder.show();
     }
 
     private static class DeleteAccountTask extends AsyncTask<String, Void, String> {
-        private Context mContext;
+        private final Context mContext;
 
         public DeleteAccountTask(Context context) {
             mContext = context;
@@ -124,7 +109,6 @@ public class SettingsActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
             try {
                 String id = params[0];
-
                 String postData = "id=" + id;
 
                 URL url = new URL("http://kora.us.to/file/settings/delete.php");
@@ -149,7 +133,6 @@ public class SettingsActivity extends AppCompatActivity {
                 }
 
                 urlConnection.disconnect();
-
                 return response.toString();
 
             } catch (Exception e) {
@@ -167,15 +150,13 @@ public class SettingsActivity extends AppCompatActivity {
                     String result = jsonResponse.getString("resposta");
                     Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
 
-                    // Limpa as preferências compartilhadas
                     SharedPreferences sharedPreferences = mContext.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.clear(); // Limpa todas as preferências
+                    editor.putString("forms", "0");
                     editor.apply();
 
-                    // Redireciona para LoginActivity
-                    Intent intent = new Intent(mContext, Login.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Limpa a pilha de atividades
+                    Intent intent = new Intent(mContext, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     mContext.startActivity(intent);
 
                 } catch (Exception e) {
@@ -186,6 +167,12 @@ public class SettingsActivity extends AppCompatActivity {
                 Toast.makeText(mContext, "No response from server", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void loadUserDetails() {
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String userName = sharedPreferences.getString("userName", "Usuário");
+        profileName.setText(userName);
     }
 
     public void onNameChangeSuccess(String newName) {
@@ -199,9 +186,4 @@ public class SettingsActivity extends AppCompatActivity {
         Log.d(TAG, "Falha ao alterar o nome.");
     }
 
-    private void loadUserDetails() {
-        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-        String userName = sharedPreferences.getString("userName", "Usuário");
-        profileName.setText(userName);
-    }
 }

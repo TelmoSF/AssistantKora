@@ -1,0 +1,54 @@
+<!-- bottom_sheet_food_details.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tv_food_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nome do Alimento"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_food_calories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Calorias" />
+
+    <TextView
+        android:id="@+id/tv_food_fat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gordura" />
+
+    <TextView
+        android:id="@+id/tv_food_carbs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Carboidratos" />
+
+    <TextView
+        android:id="@+id/tv_food_protein"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Proteína" />
+
+    <!-- Novo campo de entrada para quantidade -->
+    <EditText
+        android:id="@+id/et_quantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Quantidade (g)"
+        android:inputType="number" />
+
+    <!-- Novo botão para enviar os dados -->
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enviar" />
+
+</LinearLayout>

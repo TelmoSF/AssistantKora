@@ -2,9 +2,9 @@
     <style name="Base.Theme.AssistantKora" parent="Theme.MaterialComponents.DayNight.NoActionBar">
        <item name="colorPrimary">#5BA5EA</item>
         <item name="colorPrimaryVariant">@color/black</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/black</item>
 
-        <item name="colorSecondary">@color/white</item>
+        <item name="colorSecondary">@color/black</item>
         <item name="colorSecondaryVariant">@color/green</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>

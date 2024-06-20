@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         String userName = sharedPreferences.getString("userName", "Usuário");
         String email = sharedPreferences.getString("email", "Email");
         String number = sharedPreferences.getString("number", "Numero");
-        forms = sharedPreferences.getString("forms", "0"); // Corrige a variável forms
+        forms = sharedPreferences.getString("forms", "0");
         int id = sharedPreferences.getInt("id", 0);
         usernameTextView.setText(userName);
         emailTextView.setText(email);

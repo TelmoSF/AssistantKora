@@ -83,6 +83,8 @@ public class HealthActivity extends AppCompatActivity {
                     String postData = "info_id=" + id + "&peso=" + peso + "&altura=" + altura + "&idade=" + idade +
                             "&genero=" + genero + "&exercicio=" + exercicio + "&pesoDesejado=" + pesoDesejado;
 
+                    Log.d("HealthActivity", "Enviando dados: " + postData);
+
                     OutputStream os = conn.getOutputStream();
                     os.write(postData.getBytes());
                     os.flush();
@@ -99,23 +101,19 @@ public class HealthActivity extends AppCompatActivity {
                         }
                         in.close();
 
-                        // Log da resposta do servidor
                         Log.d("HealthActivity", "Server Response: " + response.toString());
 
-                        // Parse the JSON response
                         JSONObject jsonResponse = new JSONObject(response.toString());
                         String status = jsonResponse.getString("status");
                         String message = jsonResponse.getString("message");
 
                         runOnUiThread(() -> {
                             if ("success".equals(status)) {
-                                // Atualizar SharedPreferences
                                 SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString("forms", "1");
                                 editor.apply();
 
-                                // Navegar para a próxima atividade
                                 Intent intent = new Intent(HealthActivity.this, SaudeActivity.class);
                                 startActivity(intent);
                                 Toast.makeText(HealthActivity.this, "Dados enviados com sucesso! " + message, Toast.LENGTH_LONG).show();
@@ -134,6 +132,7 @@ public class HealthActivity extends AppCompatActivity {
             }
         }).start();
     }
+
 
     private void loadUserDetails() {
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
