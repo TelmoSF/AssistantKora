@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView usernameTextView;
     private TextView emailTextView;
     private TextView numberTextView;
-    private TextView idTextView;
+    // private TextView idTextView;
     private String forms; // Adiciona a variável forms
 
     @Override
@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
         usernameTextView = findViewById(R.id.username);
         emailTextView = findViewById(R.id.email);
-        numberTextView = findViewById(R.id.number);
-        idTextView = findViewById(R.id.id);
+        //numberTextView = findViewById(R.id.number);
+        //idTextView = findViewById(R.id.id);
 
         // Inicialmente carregue os detalhes do usuário
         loadUserDetails();
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         int id = sharedPreferences.getInt("id", 0);
         usernameTextView.setText(userName);
         emailTextView.setText(email);
-        numberTextView.setText(number);
-        idTextView.setText(String.valueOf(id));
+        //numberTextView.setText(number);
+        //idTextView.setText(String.valueOf(id));
     }
 }

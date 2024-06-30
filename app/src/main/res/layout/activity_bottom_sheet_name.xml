@@ -41,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         android:text="Guardar"
+        android:textColor="@color/white"
         android:background="@drawable/background_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

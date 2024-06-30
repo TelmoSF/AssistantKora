@@ -12,6 +12,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -32,7 +34,8 @@ public class HealthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health);
 
-        // Initialize views
+
+        AppCompatImageView imageHealthBack = findViewById(R.id.imageHealthBack);
         pesoEditText = findViewById(R.id.pesoEditText);
         alturaEditText = findViewById(R.id.alturaEditText);
         idadeEditText = findViewById(R.id.idadeEditText);
@@ -40,6 +43,16 @@ public class HealthActivity extends AppCompatActivity {
         generoRadioGroup = findViewById(R.id.generoRadioGroup);
         exercicioRadioGroup = findViewById(R.id.exercicioRadioGroup);
         enviarButton = findViewById(R.id.enviarButton);
+
+
+        imageHealthBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HealthActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         enviarButton.setOnClickListener(new View.OnClickListener() {
             @Override
