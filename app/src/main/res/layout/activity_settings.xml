@@ -289,13 +289,6 @@
                         android:src="@drawable/ic_next" />
 
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:clickable="true"
-                        android:onClick="confirmResetHealth"
-                        android:background="?android:attr/selectableItemBackground">
-                    </RelativeLayout>
 
 
                 </RelativeLayout>
