@@ -26,7 +26,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private ImageView settingsBack;
     private TextView profileName;
-    private RelativeLayout firstBox, secondBox, thirdBox, fifthBox, sixthBox, profile_container;
+    private RelativeLayout firstBox, secondBox, thirdBox, fourthBox, fifthBox, sixthBox, profile_container;
     private static final String TAG = "SettingsActivity";
 
     @Override
@@ -38,6 +38,7 @@ public class SettingsActivity extends AppCompatActivity {
         firstBox = findViewById(R.id.first_box);
         secondBox = findViewById(R.id.second_box);
         thirdBox = findViewById(R.id.third_box);
+        fourthBox = findViewById(R.id.fourth_box);
         fifthBox = findViewById(R.id.fifth_box);
         profileName = findViewById(R.id.profile_name);
         sixthBox = findViewById(R.id.sixth_box);
@@ -65,6 +66,8 @@ public class SettingsActivity extends AppCompatActivity {
         secondBox.setOnClickListener(v -> showSenha());
         thirdBox.setOnClickListener(v -> showCode());
 
+        fourthBox.setOnClickListener(this::confirmResetAccount);
+
         sixthBox.setOnClickListener(this::confirmDeleteAccount);
 
         loadUserDetails();
@@ -85,6 +88,12 @@ public class SettingsActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    public void confirmResetAccount(View view) {
+            SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+            int userId = sharedPreferences.getInt("id", 0);
+            new ResetAccountTask(SettingsActivity.this).execute(String.valueOf(userId));
+    }
+
     public void confirmDeleteAccount(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Confirmar Exclusão");
@@ -92,16 +101,16 @@ public class SettingsActivity extends AppCompatActivity {
         builder.setPositiveButton("Sim", (dialogInterface, i) -> {
             SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
             int userId = sharedPreferences.getInt("id", 0);
-            new DeleteAccountTask(SettingsActivity.this).execute(String.valueOf(userId));
+            new DeleteAccTask(SettingsActivity.this).execute(String.valueOf(userId));
         });
         builder.setNegativeButton("Não", null);
         builder.show();
     }
 
-    private static class DeleteAccountTask extends AsyncTask<String, Void, String> {
+    private static class ResetAccountTask extends AsyncTask<String, Void, String> {
         private final Context mContext;
 
-        public DeleteAccountTask(Context context) {
+        public ResetAccountTask(Context context) {
             mContext = context;
         }
 
@@ -111,7 +120,7 @@ public class SettingsActivity extends AppCompatActivity {
                 String id = params[0];
                 String postData = "id=" + id;
 
-                URL url = new URL("http://kora.us.to/file/settings/delete.php");
+                URL url = new URL("http://kora.us.to/file/saude/delete_info.php");
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setDoOutput(true);
@@ -168,6 +177,79 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             } else {
                 Toast.makeText(mContext, "No response from server", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private static class DeleteAccTask extends AsyncTask<String, Void, String> {
+        private final Context mContext;
+
+        public DeleteAccTask(Context context) {
+            mContext = context;
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                String id = params[0];
+                String postData = "id=" + id;
+
+                URL url = new URL("http://kora.us.to/file/settings/delete.php");
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setDoOutput(true);
+
+                try (OutputStream outputStream = urlConnection.getOutputStream()) {
+                    byte[] postDataBytes = postData.getBytes(StandardCharsets.UTF_8);
+                    outputStream.write(postDataBytes);
+                }
+
+                StringBuilder response = new StringBuilder();
+                int responseCode = urlConnection.getResponseCode();
+                Log.d(TAG, "Response Code: " + responseCode);
+
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        response.append(line);
+                    }
+                }
+
+                urlConnection.disconnect();
+                return response.toString();
+
+            } catch (Exception e) {
+                Log.e(TAG, "Error in AsyncTask", e);
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            if (response != null) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    String result = jsonResponse.getString("resposta");
+                    Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
+
+                    // Se a resposta do servidor for sucesso, então executa o seguinte
+                    if (result.equals("success")) {
+                        SharedPreferences sharedPreferences = mContext.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean("isLoggedIn", false);
+                        editor.apply();
+
+                        Intent intent = new Intent(mContext, Login.class);
+                        mContext.startActivity(intent);
+                        ((AppCompatActivity) mContext).finish();
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "Error parsing JSON response", e);
+                    Toast.makeText(mContext, "Erro ao analisar a resposta do servidor", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(mContext, "Sem resposta do servidor", Toast.LENGTH_SHORT).show();
             }
         }
     }
