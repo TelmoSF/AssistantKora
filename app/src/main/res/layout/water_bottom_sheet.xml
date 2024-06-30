@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
     android:layout_height="250dp"
+    android:background="#D7ECFF"
     android:padding="16dp">
 
     <TextView
@@ -12,7 +13,9 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:text="Água"
-        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,9 +23,11 @@
     <EditText
         android:id="@+id/ml"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginTop="40dp"
         android:hint="Água que bebeu em litros."
+        android:textAlignment="center"
+        android:background="@drawable/background_inputs"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,6 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:text="Guardar"
+        android:background="@drawable/background_button"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
