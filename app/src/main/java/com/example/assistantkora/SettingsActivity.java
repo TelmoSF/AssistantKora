@@ -101,7 +101,7 @@ public class SettingsActivity extends AppCompatActivity {
         builder.setPositiveButton("Sim", (dialogInterface, i) -> {
             SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
             int userId = sharedPreferences.getInt("id", 0);
-            new DeleteAccTask(SettingsActivity.this).execute(String.valueOf(userId));
+            new DeleteAccountTask(SettingsActivity.this).execute(String.valueOf(userId));
         });
         builder.setNegativeButton("Não", null);
         builder.show();
@@ -159,17 +159,14 @@ public class SettingsActivity extends AppCompatActivity {
                     String result = jsonResponse.getString("resposta");
                     Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
 
-                    // Limpa as preferências do usuário
                     SharedPreferences sharedPreferences = mContext.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
-                    sharedPreferences.edit().clear().apply();
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("forms", "0");
+                    editor.apply();
 
-                    // Redireciona para a tela de login
-                    Intent intent = new Intent(mContext, Login.class);
+                    Intent intent = new Intent(mContext, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     mContext.startActivity(intent);
-
-                    // Finaliza a SettingsActivity
-                    ((SettingsActivity) mContext).finish();
 
                 } catch (Exception e) {
                     Log.e(TAG, "Error parsing JSON response", e);
@@ -181,10 +178,10 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    private static class DeleteAccTask extends AsyncTask<String, Void, String> {
+    private static class DeleteAccountTask extends AsyncTask<String, Void, String> {
         private final Context mContext;
 
-        public DeleteAccTask(Context context) {
+        public DeleteAccountTask(Context context) {
             mContext = context;
         }
 
@@ -233,23 +230,24 @@ public class SettingsActivity extends AppCompatActivity {
                     String result = jsonResponse.getString("resposta");
                     Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
 
-                    // Se a resposta do servidor for sucesso, então executa o seguinte
-                    if (result.equals("success")) {
-                        SharedPreferences sharedPreferences = mContext.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putBoolean("isLoggedIn", false);
-                        editor.apply();
+                    // Limpa as preferências do usuário
+                    SharedPreferences sharedPreferences = mContext.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+                    sharedPreferences.edit().clear().apply();
 
-                        Intent intent = new Intent(mContext, Login.class);
-                        mContext.startActivity(intent);
-                        ((AppCompatActivity) mContext).finish();
-                    }
+                    // Redireciona para a tela de login
+                    Intent intent = new Intent(mContext, Login.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    mContext.startActivity(intent);
+
+                    // Finaliza a SettingsActivity
+                    ((SettingsActivity) mContext).finish();
+
                 } catch (Exception e) {
                     Log.e(TAG, "Error parsing JSON response", e);
-                    Toast.makeText(mContext, "Erro ao analisar a resposta do servidor", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Error parsing server response", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(mContext, "Sem resposta do servidor", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "No response from server", Toast.LENGTH_SHORT).show();
             }
         }
     }
