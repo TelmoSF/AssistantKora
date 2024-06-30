@@ -150,14 +150,17 @@ public class SettingsActivity extends AppCompatActivity {
                     String result = jsonResponse.getString("resposta");
                     Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
 
+                    // Limpa as preferências do usuário
                     SharedPreferences sharedPreferences = mContext.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("forms", "0");
-                    editor.apply();
+                    sharedPreferences.edit().clear().apply();
 
-                    Intent intent = new Intent(mContext, MainActivity.class);
+                    // Redireciona para a tela de login
+                    Intent intent = new Intent(mContext, Login.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     mContext.startActivity(intent);
+
+                    // Finaliza a SettingsActivity
+                    ((SettingsActivity) mContext).finish();
 
                 } catch (Exception e) {
                     Log.e(TAG, "Error parsing JSON response", e);

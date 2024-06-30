@@ -141,6 +141,13 @@ public class BottomSheetName extends Dialog {
 
                     // Return value based on response
                     if ("Nome Alterado".equals(resposta)) {
+                        // Atualiza o nome no SharedPreferences
+                        SharedPreferences sharedPreferences = mContext.getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("userName", email); // Salva o novo nome
+                        editor.apply();
+
+                        // Notifica a SettingsActivity sobre a alteração de nome bem-sucedida
                         ((SettingsActivity) mContext).onNameChangeSuccess(email);
                     } else {
                         ((SettingsActivity) mContext).onNameChangeFailure();
