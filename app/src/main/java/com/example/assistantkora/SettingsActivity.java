@@ -89,15 +89,22 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void confirmResetAccount(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirmação");
+        builder.setMessage("Tem a certeza que deseja resetar a funcionalidade da saúde?");
+        builder.setPositiveButton("Sim", (dialogInterface, i) -> {
             SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
             int userId = sharedPreferences.getInt("id", 0);
             new ResetAccountTask(SettingsActivity.this).execute(String.valueOf(userId));
+        });
+        builder.setNegativeButton("Não", null);
+        builder.show();
     }
 
     public void confirmDeleteAccount(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Confirmar Exclusão");
-        builder.setMessage("Tem certeza que deseja excluir sua conta?");
+        builder.setTitle("Confirmação");
+        builder.setMessage("Tem a certeza que deseja apagar a sua conta?");
         builder.setPositiveButton("Sim", (dialogInterface, i) -> {
             SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
             int userId = sharedPreferences.getInt("id", 0);
@@ -164,9 +171,6 @@ public class SettingsActivity extends AppCompatActivity {
                     editor.putString("forms", "0");
                     editor.apply();
 
-                    Intent intent = new Intent(mContext, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    mContext.startActivity(intent);
 
                 } catch (Exception e) {
                     Log.e(TAG, "Error parsing JSON response", e);
